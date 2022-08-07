@@ -90,3 +90,136 @@ public class Dealer {
   * controller建立 `deleteDealer()` 方法，並加上 `@DeleteMapping("/delete/{seq}")`，@PathVariable取得編號
   * service建立 `deleteDealer()` 方法，供controller調用service先找到該間車行，在刪除車行及內容
   * [http://localhost:8080/dealer/delete/:id](https://)
+
+### DealerService.java
+
+* 取得所有車行
+
+    ```java!
+    public List<Dealer> getAllDealers() {
+        return this.dealerList;
+    }
+    ```
+
+* 根據編號取得單間車行
+
+    ```java!
+    public Dealer getDealersBySeq(int seq) {
+        for (Dealer dealer : this.dealerList) {
+            if (dealer.getSeq() == seq) {
+                return dealer;
+            }
+        }
+        return null;
+    }
+    ```
+
+* 新增車行
+
+    ```java!
+    public Dealer createDealer(Dealer dealer) {
+        for (Dealer createdDealer : this.dealerList) {
+            if (dealer.getSeq() == createdDealer.getSeq()) {
+                System.out.println("新增失敗，單號重複，請再確認");
+                return dealer;
+            }
+        }
+        this.dealerList.add(dealer);
+        System.out.println("新增成功");
+        return dealer;
+    }
+    ```
+
+* 修改車行及車子資訊
+
+    ```java!
+    public Dealer updateDealer(int seq, Dealer dealer) {
+        for (Dealer updatedDealer : this.dealerList) {
+            if (seq == updatedDealer.getSeq()) {
+                updatedDealer.setContactPerson(dealer.getContactPerson());
+                updatedDealer.setPhone(dealer.getPhone());
+                updatedDealer.setCarList(dealer.getCarList());
+                System.out.println("修改成功");
+                return updatedDealer;
+            }
+        }
+        return null;
+    }
+    ```
+
+* 刪除車行
+
+    ```java!
+    public Dealer deleteDealer(int seq) {
+        for (Dealer deletedDealer : this.dealerList) {
+            if (seq == deletedDealer.getSeq()) {
+                this.dealerList.remove(deletedDealer);
+                System.out.println("刪除成功");
+                return deletedDealer;
+            }
+        }
+        return null;
+    }
+    ```
+
+### DealerController.java
+
+* 取得所有車行 GET
+
+    ```java!
+    @GetMapping()
+    public List<Dealer> getAllDealers() {
+        List<Dealer> dealerList = this.dealerService.getAllDealers();
+        if (dealerList.size() == 0)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+        return dealerList;
+    }
+    ```
+
+* 根據編號取得單間車行 GET
+
+    ```java!
+    @GetMapping("/{seq}")
+    public Dealer getDealerBySeq(@PathVariable int seq) {
+        Dealer dealer = this.dealerService.getDealersBySeq(seq);
+        if (dealer == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+        return dealer;
+    }
+    ```
+
+* 新增車行 POST
+
+    ```java!
+    @PostMapping("/create")
+    public Dealer createDealer(@RequestBody Dealer dealer) {
+        Dealer createdDealer = this.dealerService.createDealer(dealer);
+        if (createdDealer == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+        return createdDealer;
+    }
+    ```
+
+* 修改車行及車子資訊 PUT
+
+    ```java!
+    @PutMapping("/update/{seq}")
+    public Dealer updateDealer(@PathVariable int seq, @RequestBody Dealer dealer){
+        Dealer updateOrder = this.dealerService.updateDealer(seq, dealer);
+        if (updateOrder == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+        return updateOrder;
+    }
+    ```
+
+* 刪除車行 DELETE
+
+    ```java!
+    @DeleteMapping("/delete/{seq}")
+    public Dealer deleteDealer(@PathVariable int seq) {
+        Dealer deletedOrder = this.dealerService.deleteDealer(seq);
+        if (deletedOrder == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+        return deletedOrder;
+    }
+    ```
