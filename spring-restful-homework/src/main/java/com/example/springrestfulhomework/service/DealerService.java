@@ -40,8 +40,8 @@ public class DealerService {
     }
 
     public Dealer createDealer(Dealer dealer) {
-        for(Dealer createdDealer:this.dealerList){
-            if(dealer.getSeq()==createdDealer.getSeq()){
+        for (Dealer createdDealer : this.dealerList) {
+            if (dealer.getSeq() == createdDealer.getSeq()) {
                 System.out.println("新增失敗，單號重複，請再確認");
                 return dealer;
             }

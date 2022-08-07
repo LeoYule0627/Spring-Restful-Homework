@@ -1,6 +1,5 @@
 package com.example.springrestfulhomework.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,11 +24,11 @@ public class Car {
         this.mileage = mileage;
     }
 
-    public String getName(){
-        return this.depot+" "+this.carModel+" "+this.years;
+    public String getName() {
+        return this.depot + " " + this.carModel + " " + this.years;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 }
