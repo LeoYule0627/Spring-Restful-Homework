@@ -73,15 +73,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/dealer/create",
+					"raw": "http://localhost:8080/dealer",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"dealer",
-						"create"
+						"dealer"
 					]
 				}
 			},
@@ -94,7 +93,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"seq\": 2,\r\n    \"contactPerson\": \"Mr.Blue\",\r\n    \"phone\": \"0987-654-321\",\r\n    \"carList\": [\r\n        {\r\n            \"name\": \"HyundaiVELOSTER2016\",\r\n            \"depot\": \"Hyundai\",\r\n            \"carModel\": \"VELOSTER\",\r\n            \"years\": 2016,\r\n            \"price\": 680000,\r\n            \"color\": \"Blue\",\r\n            \"mileage\": 44747\r\n        },\r\n        {\r\n            \"name\": \"BMWX52014\",\r\n            \"depot\": \"BMW\",\r\n            \"carModel\": \"X5\",\r\n            \"years\": 2014,\r\n            \"price\": 1288000,\r\n            \"color\": \"Blue\",\r\n            \"mileage\": 115002\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"seq\": 2,\r\n    \"contactPerson\": \"Mr.Blue\",\r\n    \"phone\": \"0987-654-321\",\r\n    \"carList\": [\r\n        {\r\n            \"name\": \"HyundaiVELOSTER2016\",\r\n            \"depot\": \"Hyundai\",\r\n            \"carModel\": \"VELOSTER\",\r\n            \"years\": 2016,\r\n            \"price\": 680000,\r\n            \"color\": \"Blue\",\r\n            \"mileage\": 44747\r\n        },\r\n        {\r\n            \"name\": \"BMWX52014\",\r\n            \"depot\": \"BMW\",\r\n            \"carModel\": \"X5\",\r\n            \"years\": 2014,\r\n            \"price\": 1288000,\r\n            \"color\": \"Blue\",\r\n            \"mileage\": 115002\r\n        },\r\n        {\r\n            \"name\": \"AudiRS52020\",\r\n            \"depot\": \"Audi\",\r\n            \"carModel\": \"RS5\",\r\n            \"years\": 2020,\r\n            \"price\": 4780000,\r\n            \"color\": \"Blue\",\r\n            \"mileage\": 52000\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,7 +101,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/dealer/update/:id",
+					"raw": "http://localhost:8080/dealer/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -110,7 +109,6 @@
 					"port": "8080",
 					"path": [
 						"dealer",
-						"update",
 						":id"
 					],
 					"variable": [
@@ -129,7 +127,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/dealer/delete/:id",
+					"raw": "http://localhost:8080/dealer/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -137,7 +135,6 @@
 					"port": "8080",
 					"path": [
 						"dealer",
-						"delete",
 						":id"
 					],
 					"variable": [
