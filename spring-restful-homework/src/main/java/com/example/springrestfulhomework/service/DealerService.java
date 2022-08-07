@@ -36,18 +36,17 @@ public class DealerService {
                 return dealer;
             }
         }
-        return null;
+        throw new java.lang.RuntimeException("Can not found data.");
     }
 
     public Dealer createDealer(Dealer dealer) {
-        for(Dealer createdDealer:this.dealerList){
-            if(dealer.getSeq()==createdDealer.getSeq()){
-                System.out.println("新增失敗，單號重複，請再確認");
-                return dealer;
+        for (Dealer createdDealer : this.dealerList) {
+            if (dealer.getSeq() == createdDealer.getSeq()) {
+                throw new java.lang.RuntimeException("The Seq is already exist.");
             }
         }
         this.dealerList.add(dealer);
-        System.out.println("新增成功");
+        System.out.println("successfully Yeah!");
         return dealer;
     }
 
@@ -57,21 +56,21 @@ public class DealerService {
                 updatedDealer.setContactPerson(dealer.getContactPerson());
                 updatedDealer.setPhone(dealer.getPhone());
                 updatedDealer.setCarList(dealer.getCarList());
-                System.out.println("修改成功");
+                System.out.println("successfully Yeah!");
                 return updatedDealer;
             }
         }
-        return null;
+        throw new java.lang.RuntimeException("Can not found data.");
     }
 
     public Dealer deleteDealer(int seq) {
         for (Dealer deletedDealer : this.dealerList) {
             if (seq == deletedDealer.getSeq()) {
                 this.dealerList.remove(deletedDealer);
-                System.out.println("刪除成功");
+                System.out.println("successfully Yeah!");
                 return deletedDealer;
             }
         }
-        return null;
+        throw new java.lang.RuntimeException("Can not found data.");
     }
 }

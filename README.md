@@ -91,6 +91,13 @@ public class Dealer {
   * service建立 `deleteDealer()` 方法，供controller調用service先找到該間車行，在刪除車行及內容
   * [http://localhost:8080/dealer/delete/:id](https://)
 
+:::danger
+
+* /{Seq}不可輸入空值、文字、不存在的Seq。
+* createDealer時，不可重複新增。
+
+:::
+
 ### DealerService.java
 
 * 取得所有車行
@@ -110,7 +117,7 @@ public class Dealer {
                 return dealer;
             }
         }
-        return null;
+        throw new java.lang.RuntimeException("Can not found data.");
     }
     ```
 
@@ -120,12 +127,11 @@ public class Dealer {
     public Dealer createDealer(Dealer dealer) {
         for (Dealer createdDealer : this.dealerList) {
             if (dealer.getSeq() == createdDealer.getSeq()) {
-                System.out.println("新增失敗，單號重複，請再確認");
-                return dealer;
+                throw new java.lang.RuntimeException("The Seq is already exist.");
             }
         }
         this.dealerList.add(dealer);
-        System.out.println("新增成功");
+        System.out.println("successfully Yeah!");
         return dealer;
     }
     ```
@@ -139,11 +145,11 @@ public class Dealer {
                 updatedDealer.setContactPerson(dealer.getContactPerson());
                 updatedDealer.setPhone(dealer.getPhone());
                 updatedDealer.setCarList(dealer.getCarList());
-                System.out.println("修改成功");
+                System.out.println("successfully Yeah!");
                 return updatedDealer;
             }
         }
-        return null;
+        throw new java.lang.RuntimeException("Can not found data.");
     }
     ```
 
@@ -154,11 +160,11 @@ public class Dealer {
         for (Dealer deletedDealer : this.dealerList) {
             if (seq == deletedDealer.getSeq()) {
                 this.dealerList.remove(deletedDealer);
-                System.out.println("刪除成功");
+                System.out.println("successfully Yeah!");
                 return deletedDealer;
             }
         }
-        return null;
+        throw new java.lang.RuntimeException("Can not found data.");
     }
     ```
 
@@ -171,7 +177,7 @@ public class Dealer {
     public List<Dealer> getAllDealers() {
         List<Dealer> dealerList = this.dealerService.getAllDealers();
         if (dealerList.size() == 0)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found ^_^");
         return dealerList;
     }
     ```
@@ -180,11 +186,14 @@ public class Dealer {
 
     ```java!
     @GetMapping("/{seq}")
-    public Dealer getDealerBySeq(@PathVariable int seq) {
-        Dealer dealer = this.dealerService.getDealersBySeq(seq);
-        if (dealer == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-        return dealer;
+    public Dealer getDealerBySeq(@PathVariable String seq) {
+        try {
+            Dealer dealer = this.dealerService.getDealersBySeq(Integer.parseInt(seq));
+            return dealer;
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found ^_^");
+        }
     }
     ```
 
@@ -193,10 +202,13 @@ public class Dealer {
     ```java!
     @PostMapping("/create")
     public Dealer createDealer(@RequestBody Dealer dealer) {
-        Dealer createdDealer = this.dealerService.createDealer(dealer);
-        if (createdDealer == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-        return createdDealer;
+        try{
+            Dealer createdDealer = this.dealerService.createDealer(dealer);
+            return createdDealer;
+        }catch (Exception e){
+            System.out.println(e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The Seq is already exist.");
+        }
     }
     ```
 
@@ -204,11 +216,14 @@ public class Dealer {
 
     ```java!
     @PutMapping("/update/{seq}")
-    public Dealer updateDealer(@PathVariable int seq, @RequestBody Dealer dealer){
-        Dealer updateOrder = this.dealerService.updateDealer(seq, dealer);
-        if (updateOrder == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-        return updateOrder;
+    public Dealer updateDealer(@PathVariable String seq, @RequestBody Dealer dealer) {
+        try{
+            Dealer updateOrder = this.dealerService.updateDealer(Integer.parseInt(seq), dealer);
+            return updateOrder;
+        }catch(Exception e){
+            System.out.println(e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found ^_^");
+        }
     }
     ```
 
@@ -216,10 +231,13 @@ public class Dealer {
 
     ```java!
     @DeleteMapping("/delete/{seq}")
-    public Dealer deleteDealer(@PathVariable int seq) {
-        Dealer deletedOrder = this.dealerService.deleteDealer(seq);
-        if (deletedOrder == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-        return deletedOrder;
+    public Dealer deleteDealer(@PathVariable String seq) {
+        try {
+            Dealer deletedOrder = this.dealerService.deleteDealer(Integer.parseInt(seq));
+            return deletedOrder;
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found ^_^");
+        }
     }
     ```
