@@ -91,12 +91,10 @@ public class Dealer {
   * service建立 `deleteDealer()` 方法，供controller調用service先找到該間車行，在刪除車行及內容
   * [http://localhost:8080/dealer/delete/:id](https://)
 
-:::danger
-
+```
 * /{Seq}不可輸入空值、文字、不存在的Seq。
 * createDealer時，不可重複新增。
-
-:::
+```
 
 ### DealerService.java
 
