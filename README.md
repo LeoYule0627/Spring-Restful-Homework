@@ -68,33 +68,34 @@ public class Dealer {
 
 * 取得所有車行
   * controller 建立 `getAllDealers()` 方法，並加上`@GetMapping()`
-  * service 建立 `getAllDealers()` 方法，供controller調用並回傳所有dealerList
+  * service 建立 `getAllDealers()` 方法，供 controller 調用並回傳所有 dealerList
   * [http://localhost:8080/dealer](https://)
 
 * 根據編號取得單間車行
-  * controller建立 `getDealersBySeq()` 方法，並加上 `@GetMapping("/{seq}")`，@PathVariable取得編號
-  * service建立 `getDealersBySeq()` 方法，供controller調用並回傳單間車行
+  * controller 建立 `getDealersBySeq()` 方法，並加上 `@GetMapping("/{seq}")`，@PathVariable 取得編號
+  * service 建立 `getDealersBySeq()` 方法，供 controller 調用並回傳單間車行
   * [http://localhost:8080/dealer/:id](https://)
 
 * 新增車行
-  * controller建立 `createDealer()` 方法，並加上 `@PostMapping("/create")` ，@RequestBody取得新增內容
-  * service建立 `createDealer()` 方法，供controller調用並新增車行到陣列
+  * controller 建立 `createDealer()` 方法，並加上 `@PostMapping("/create")` ，@RequestBody 取得新增內容
+  * service 建立 `createDealer()` 方法，供 controller 調用並新增車行到陣列
   * [http://localhost:8080/dealer/create](https://)
 
 * 修改車行及車子資訊
-  * controller建立 `updateDealer()` 方法，並加上 `@PutMapping("/update/{seq}")` ，@PathVariable取得編號，@RequestBody取得修改內容
-  * service建立 `updateDealer()` 方法，供controller調用service先找到該間車行，在修改內容資訊
+  * controller 建立 `updateDealer()` 方法，並加上 `@PutMapping("/update/{seq}")` ，@PathVariable 取得編號，@RequestBody 取得修改內容
+  * service 建立 `updateDealer()` 方法，供 controller 調用 service 先找到該間車行，在修改內容資訊
   * [http://localhost:8080/dealer/update/:id](https://)
 
 * 刪除車行
-  * controller建立 `deleteDealer()` 方法，並加上 `@DeleteMapping("/delete/{seq}")`，@PathVariable取得編號
-  * service建立 `deleteDealer()` 方法，供controller調用service先找到該間車行，在刪除車行及內容
+  * controller 建立 `deleteDealer()` 方法，並加上 `@DeleteMapping("/delete/{seq}")`，@PathVariable 取得編號
+  * service 建立 `deleteDealer()` 方法，供 controller 調用 service 先找到該間車行，在刪除車行及內容
   * [http://localhost:8080/dealer/delete/:id](https://)
 
 ```
-* /{Seq}不可輸入空值、文字、不存在的Seq。
-* createDealer時，不可重複新增。
-* 嘗試throw exception。
+* /{Seq} 不可輸入空值、文字、不存在的 Seq。
+* createDealer 時，不可重複新增。
+* 嘗試 throw exception。
+* 在 application.properties 裡面加上，`server.error.include-message=always`，就可以顯示後面那串 message 了!!!
 ```
 
 ### DealerService.java
