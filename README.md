@@ -94,6 +94,7 @@ public class Dealer {
 ```
 * /{Seq}不可輸入空值、文字、不存在的Seq。
 * createDealer時，不可重複新增。
+* 嘗試throw exception。
 ```
 
 ### DealerService.java
