@@ -43,7 +43,7 @@ public class DealerController {
             return createdDealer;
         }catch (Exception e){
             System.out.println(e);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The Seq is already exist.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The Seq is already exist.");
         }
     }
 
